@@ -80,26 +80,16 @@ in
 
   services.interception-tools = {
     enable = true;
-    plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
+    plugins = [ pkgs.interception-tools-plugins.caps2esc ];
     udevmonConfig = ''
-      - JOB: 'intercept -g $DEVNODE | dual-function-keys -c /etc/interception-tools/dual-function-keys.yaml | uinput -d $DEVNODE'
+      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | \
+             ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc | \
+             ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
         DEVICE:
-          NAME: ".*"
           EVENTS:
-            EV_KEY: [KEY_CAPSLOCK]
+            EV_KEY: [KEY_CAPSLOCK, KEY_LEFTCTRL]
     '';
   };
-
-  environment.etc."interception/dual-function-keys.yaml".text = ''
-    TIMING:
-      TAP_MILLISEC: 200
-      DOUBLE_TAP_MILLISEC: 0
-
-    MAPPINGS:
-      - KEY: KEY_CAPSLOCK
-        TAP: KEY_ESC
-	HOLD: KEY_LEFTCTRL
-  '';
 
   # Make input group for udevmon
   users.groups.input = {};
@@ -137,7 +127,7 @@ in
 	ghostty
 	git
 	vscode
-	# neovim	# Hold off until dual function caps lock works
+	neovim
 
 	# Diagnostic utils
 	dysk
@@ -172,6 +162,8 @@ in
 	# Used for setting up dual function Caps Lock key
 	interception-tools
 	interception-tools-plugins.dual-function-keys
+
+	home-manager
 
 	# List of python packages
 	myPython

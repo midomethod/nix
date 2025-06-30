@@ -1,13 +1,15 @@
 {
-  home.username = "nixbookpro";
-  home.homeDirectory = "/home/nixbookpro";
+  home.username = "nixvin";
+  home.homeDirectory = "/home/nixvin";
   home.stateVersion = "25.05";
 
   home.file.".zshrc".text = ''
 	export EDITOR=nano;
 	export PATH=$HOME/bin:$PATH;
 
-	bindkey -v;
+	bindkey -v # Have this disabled for now because of vim skill issue
+	bindkey '^A' beginning-of-line
+	bindkey '^E' end-of-line
 
 	eval "$(starship init zsh)";
 
@@ -23,8 +25,8 @@
   '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = ~/Backgrounds/powerlines.png
-    wallpaper = eDP-1, ~/Backgrounds/powerlines.png
+    preload = ~/Backgrounds/arctic_sunset.png
+    wallpaper =  HDMI-A-1, ~/Backgrounds/arctic_sunset.png
   '';
 
   home.file.".config/hypr/hypridle.conf".text = ''

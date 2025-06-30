@@ -5,8 +5,8 @@
 
 # Define my python package lists
 let
-  username = "nixbookpro";
-  userdescription = "Midori's Macbook Pro";
+  username = "nixvin";
+  userdescription = "Spider's NixOS Machine Inherited From Neat";
   myPython = pkgs.python3.withPackages (ps: with ps; [
     pip
     requests
